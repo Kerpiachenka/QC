@@ -1,6 +1,6 @@
 package by.gstu.app.repository
 
-import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import by.gstu.app.bean.Abonent
@@ -10,21 +10,17 @@ import by.gstu.app.call.InsertAbonentCallableAction
 import by.gstu.app.call.UpdateAbonentCallableAction
 import by.gstu.app.dao.AbonentDao
 import by.gstu.app.database.AppDatabase
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.Callable
 
-sealed class AbonentRepositoryImpl(app: Application) : AbonentRepository {
+class AbonentRepositoryImpl(private val context: Context) : AbonentRepository {
 
     var dao: AbonentDao
-    var application: Application
 
     init {
-        val db = Room.databaseBuilder(app,
+        val db = Room.databaseBuilder(context,
                 AppDatabase::class.java, "database").build()
-        application = app
         dao = db.abonentDao()
     }
 
@@ -34,15 +30,15 @@ sealed class AbonentRepositoryImpl(app: Application) : AbonentRepository {
     }
 
     override fun insert(abonent: Abonent) {
-        execute(InsertAbonentCallableAction(abonent, dao, application))
+        execute(InsertAbonentCallableAction(abonent, dao, context))
     }
 
     override fun update(abonent: Abonent) {
-        execute(UpdateAbonentCallableAction(abonent, dao, application))
+        execute(UpdateAbonentCallableAction(abonent, dao, context))
     }
 
     override fun delete(abonent: Abonent) {
-        execute(DeleteAbonentCallableAction(abonent, dao, application))
+        execute(DeleteAbonentCallableAction(abonent, dao, context))
     }
 
     private fun execute(abonentCallableAction: AbonentCallableAction) {

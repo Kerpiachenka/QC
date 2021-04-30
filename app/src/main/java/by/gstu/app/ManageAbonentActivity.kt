@@ -21,6 +21,7 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
 
         binding.viewmodel = viewModel
         viewModel.manageAbonentListener = this
+
     }
 
     override fun onStarted() {

@@ -17,6 +17,8 @@ class ManageAbonentViewModel : ViewModel() {
     }
 
     fun deleteContactButtonClick(view: View) {
+        manageAbonentListener?.onStarted()
 
+        manageAbonentListener?.onSuccess()
     }
 }
