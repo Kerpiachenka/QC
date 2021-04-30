@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">Quick-Contact</string>
+    <string name="contactNameHintPlaintText">name</string>
+    <string name="ageHintTextNumber">age</string>
+    <string name="sexSwitchTextOff">Female</string>
+    <string name="sexSwitchTextOn">Male</string>
+    <string name="search_hint">John Doe…</string>
+    <string name="search_title">Find contact</string>
+    <string name="theme">Theme</string>
+    <string name="dark_theme">Dark</string>
+    <string name="light_theme">Light</string>
+    <string name="load_image_error">Cannot load the image</string>
+    <string name="empty_contact_name_field_error">Please enter a name</string>
+    <string name="empty_age_field_error">Please enter an age</string>
+    <string name="incorrect_contact_name_field_error">Name is too short</string>
+    <string name="incorrect_age_field_error">Age is out of range</string>
+    <string name="pattern_contact_name_error">Name isn\'t match pattern</string>
 </resources>
