@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Quick-Contact</string>
+    <string name="contactNameHintPlaintText">погремуха</string>
+    <string name="ageHintTextNumber">лвл</string>
+    <string name="sexSwitchTextOff">Самка</string>
+    <string name="sexSwitchTextOn">Самец</string>
+    <string name="search_hint">Инкогнито…</string>
+    <string name="search_title">Поиск контакта</string>
+    <string name="theme">Тема</string>
+    <string name="dark_theme">Темно</string>
+    <string name="light_theme">Светло</string>
+    <string name="load_image_error">Не удалось загрузить фото</string>
+    <string name="empty_contact_name_field_error">Введите имя</string>
+    <string name="empty_age_field_error">Введите возраст</string>
+    <string name="incorrect_contact_name_field_error">Имя слишком короткое</string>
+    <string name="incorrect_age_field_error">Нарушены границы возраста</string>
+    <string name="pattern_contact_name_error">Имя не соответсвует шаблону</string>
+</resources>
