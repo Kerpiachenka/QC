@@ -6,7 +6,7 @@ import by.gstu.app.listener.ManageAbonentListener
 
 class ManageAbonentViewModel : ViewModel() {
     var name: String? = null
-    var age: Int? = null
+    var age: String? = null
 
     var manageAbonentListener: ManageAbonentListener? = null
 
