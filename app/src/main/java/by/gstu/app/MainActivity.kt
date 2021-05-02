@@ -11,25 +11,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import by.gstu.app.adapter.AbonentRecyclerViewAdapter
+import by.gstu.app.bean.Abonent
 import by.gstu.app.database.AppDatabase
 import by.gstu.app.databinding.ActivityMainBinding
 import by.gstu.app.databinding.ActivityManageAbonentBinding
+import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
 import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.viewmodel.MainActivityViewModel
 import by.gstu.app.viewmodel.ManageAbonentViewModel
 
-class MainActivity : AppCompatActivity(), MainActivityListener {
+class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListener {
 
     lateinit var viewModel: MainActivityViewModel
-    private val adapter = AbonentRecyclerViewAdapter()
+    private lateinit var adapter: AbonentRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val binding : ActivityMainBinding = DataBindingUtil
                 .setContentView(this, R.layout.activity_main)
-
+        adapter = AbonentRecyclerViewAdapter(this)
         // Bind RecyclerView
         val recyclerView: RecyclerView = binding.abonentList
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -56,6 +58,12 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
 
     override fun onOpenManageAbonentActivity() {
         val intent = Intent(this, ManageAbonentActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onCardClick(abonent: Abonent) {
+        val intent = Intent(this, ManageAbonentActivity::class.java)
+        intent.putExtra(Abonent::class.java.simpleName, abonent)
         startActivity(intent)
     }
 }

@@ -8,6 +8,8 @@
         <variable
             name="viewmodel"
             type="by.gstu.app.viewmodel.ManageAbonentViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +68,7 @@
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
             android:onClick="@{viewmodel::deleteContactButtonClick}"
-            android:visibility="invisible"
+            android:visibility="@{viewmodel.abonent != null ? View.VISIBLE : View.GONE}"
             app:backgroundTint="#F44336"
             app:icon="@drawable/ic_delete_friend_button"
             app:layout_constraintBottom_toTopOf="@+id/abonent_name"

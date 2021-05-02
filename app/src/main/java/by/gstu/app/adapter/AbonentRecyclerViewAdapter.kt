@@ -11,9 +11,8 @@ import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ItemRowBinding
 import by.gstu.app.listener.CardClickListener
 
-class AbonentRecyclerViewAdapter
-    : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(),
-        CardClickListener, Filterable {
+class AbonentRecyclerViewAdapter(val onCardClick: CardClickListener)
+    : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(), Filterable {
 
     private val data: MutableList<Abonent> = arrayListOf()
 
@@ -21,6 +20,7 @@ class AbonentRecyclerViewAdapter
         : RecyclerView.ViewHolder(binding.root) {
             fun bind(abonent: Abonent) {
                 binding.model = abonent
+                binding.itemClickListener = onCardClick
                 binding.executePendingBindings()
             }
         }
@@ -44,10 +44,6 @@ class AbonentRecyclerViewAdapter
 
     override fun getItemCount() : Int {
         return data.size
-    }
-
-    override fun onCardClick(abonent: Abonent) {
-        TODO("Not yet implemented")
     }
 
     override fun getFilter(): Filter {

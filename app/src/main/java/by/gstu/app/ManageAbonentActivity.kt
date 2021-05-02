@@ -1,9 +1,13 @@
 package by.gstu.app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ActivityManageAbonentBinding
 import by.gstu.app.listener.ManageAbonentListener
 import by.gstu.app.repository.AbonentRepositoryImpl
@@ -20,17 +24,25 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
         val viewModel: ManageAbonentViewModel = ViewModelProvider(this)
             .get(ManageAbonentViewModel::class.java)
 
+        val repository = AbonentRepositoryImpl(this.applicationContext)
+
+        val entity = intent.getSerializableExtra(Abonent::class.java.simpleName)
+        entity?.let {
+            val abonent = it as Abonent
+            viewModel.abonent = abonent
+            viewModel.name = abonent.name
+            viewModel.age = abonent.age.toString()
+        }
+
+        repository.manageAbonentListener = this
         binding.viewmodel = viewModel
         viewModel.manageAbonentListener = this
-        viewModel.repository = AbonentRepositoryImpl(this.applicationContext)
-    }
-
-    override fun onStarted() {
-        toast("On started")
+        viewModel.repository = repository
     }
 
     override fun onSuccess() {
-        toast("On success")
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onFailure(message: String) {

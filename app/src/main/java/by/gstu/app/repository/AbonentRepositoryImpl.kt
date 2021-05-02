@@ -10,13 +10,16 @@ import by.gstu.app.call.InsertAbonentCallableAction
 import by.gstu.app.call.UpdateAbonentCallableAction
 import by.gstu.app.dao.AbonentDao
 import by.gstu.app.database.AppDatabase
+import by.gstu.app.listener.ManageAbonentListener
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class AbonentRepositoryImpl(private val context: Context) : AbonentRepository {
+class AbonentRepositoryImpl(private val context: Context)
+    : AbonentRepository {
 
     var dao: AbonentDao
+    var manageAbonentListener: ManageAbonentListener? = null
 
     init {
         val db = Room.databaseBuilder(context,
@@ -45,10 +48,11 @@ class AbonentRepositoryImpl(private val context: Context) : AbonentRepository {
         Observable.fromCallable(abonentCallableAction)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { obj ->
-                    when (obj) {
-                        true -> print("suc")
-                        false -> print("err")
+                .subscribe { res ->
+                    when (res) {
+                        true -> manageAbonentListener?.onSuccess()
+                        false -> manageAbonentListener
+                                ?.onFailure("Something went wrong during query execution.")
                     }
                 }
     }

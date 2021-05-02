@@ -11,22 +11,37 @@ class ManageAbonentViewModel : ViewModel() {
 
     var name: String? = null
     var age: String? = null
+    var abonent: Abonent? = null
 
     var manageAbonentListener: ManageAbonentListener? = null
 
     fun saveChangesButtonClick(view: View) {
-        manageAbonentListener?.onStarted()
         if (name.isNullOrBlank() || age.isNullOrBlank()) {
             manageAbonentListener?.onFailure("Incorrect name or age")
             return
         }
-        repository?.insert(Abonent(0, name!!, age!!.toInt()))
+        when(abonent) {
+            null -> createNew()
+            else -> updateExists()
+        }
+
         manageAbonentListener?.onSuccess()
     }
 
-    fun deleteContactButtonClick(view: View) {
-        manageAbonentListener?.onStarted()
+    private fun updateExists() {
+        repository?.update(Abonent(abonent!!.id, name!!, age!!.toInt()))
+    }
 
+    private fun createNew() {
+        repository?.insert(Abonent(0, name!!, age!!.toInt()))
+    }
+
+    fun deleteContactButtonClick(view: View) {
+        if (repository == null) {
+            manageAbonentListener?.onFailure("Repository must be initialized.")
+            return
+        }
+        repository!!.delete(abonent!!)
         manageAbonentListener?.onSuccess()
     }
 }
