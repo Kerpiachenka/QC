@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import by.gstu.app.databinding.ActivityManageAbonentBinding
 import by.gstu.app.listener.ManageAbonentListener
+import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.ManageAbonentViewModel
 
@@ -21,7 +22,7 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
 
         binding.viewmodel = viewModel
         viewModel.manageAbonentListener = this
-
+        viewModel.repository = AbonentRepositoryImpl(this.applicationContext)
     }
 
     override fun onStarted() {

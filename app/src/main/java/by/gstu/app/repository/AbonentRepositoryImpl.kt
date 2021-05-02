@@ -45,11 +45,11 @@ class AbonentRepositoryImpl(private val context: Context) : AbonentRepository {
         Observable.fromCallable(abonentCallableAction)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                /*.subscribe { obj ->
+                .subscribe { obj ->
                     when (obj) {
-                        true -> startActivity(Intent(applicationContext, MainActivity::class.java))
-                        false -> showToast("Error")
+                        true -> print("suc")
+                        false -> print("err")
                     }
-                }*/
+                }
     }
 }

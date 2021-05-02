@@ -1,6 +1,5 @@
 package by.gstu.app.call
 
-import android.app.Application
 import android.content.Context
 import android.widget.Toast
 import by.gstu.app.bean.Abonent

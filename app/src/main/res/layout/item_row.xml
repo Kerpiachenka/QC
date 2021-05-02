@@ -60,7 +60,7 @@
 
             <TextView
                 android:id="@+id/abonent_age"
-                android:text="@{model.age}"
+                android:text="@{model.age + ``}"
                 android:layout_width="55dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"

@@ -2,6 +2,7 @@ package by.gstu.app.viewmodel
 
 import android.view.View
 import androidx.lifecycle.*
+import by.gstu.app.adapter.AbonentRecyclerViewAdapter
 import by.gstu.app.bean.Abonent
 import by.gstu.app.listener.MainActivityListener
 import by.gstu.app.repository.AbonentRepository
@@ -11,17 +12,17 @@ class MainActivityViewModel : ViewModel() {
 
     var mainActivityListener: MainActivityListener? = null
     var abonentRepository: AbonentRepository? = null
-    var lifecycleOwner: LifecycleOwner? = null
-    // TODO: inject recyclerView: AbonentRecyclerView component
+    lateinit var abonentList: LiveData<List<Abonent>>
 
     fun openManageAbonentActivity(view: View) {
         mainActivityListener?.onOpenManageAbonentActivity()
     }
 
-    fun loadAbonentList() {
-        lifecycleOwner?.let { abonentRepository?.getAll()?.observe(it, {
-                    // TODO: add data to recyclerview component
-                })
-        }
+    fun updateList() {
+        abonentList = abonentRepository?.getAll()!!
+    }
+
+    fun getAllAbonent() : LiveData<List<Abonent>> {
+        return abonentList
     }
 }
