@@ -1,7 +1,5 @@
 package by.gstu.app.listener
 
-import by.gstu.app.bean.Abonent
-
-interface CardClickListener {
-    fun onCardClick(abonent: Abonent)
+interface CardClickListener<T> {
+    fun onCardClick(obj: T)
 }

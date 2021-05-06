@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class PlatformRepositoryImpl(private val context: Context)
     : PlatformRepository {
 
-    var dao: PlatformDao
+    private var dao: PlatformDao
     var listener: BaseQueryResultListener? = null
 
     init {

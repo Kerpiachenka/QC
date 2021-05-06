@@ -21,7 +21,7 @@ import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.viewmodel.MainActivityViewModel
 import by.gstu.app.viewmodel.ManageAbonentViewModel
 
-class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListener {
+class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListener<Abonent> {
 
     lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: AbonentRecyclerViewAdapter
@@ -62,9 +62,14 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
         startActivity(intent)
     }
 
-    override fun onCardClick(abonent: Abonent) {
+    override fun onOpenManagePlatformActivity() {
+        val intent = Intent(this, ManagePlatformActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onCardClick(obj: Abonent) {
         val intent = Intent(this, ManageAbonentActivity::class.java)
-        intent.putExtra(Abonent::class.java.simpleName, abonent)
+        intent.putExtra(Abonent::class.java.simpleName, obj)
         startActivity(intent)
     }
 }

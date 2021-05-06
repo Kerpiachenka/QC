@@ -11,7 +11,7 @@ import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ItemRowBinding
 import by.gstu.app.listener.CardClickListener
 
-class AbonentRecyclerViewAdapter(val onCardClick: CardClickListener)
+class AbonentRecyclerViewAdapter(val onCardClick: CardClickListener<Abonent>)
     : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(), Filterable {
 
     private val data: MutableList<Abonent> = arrayListOf()

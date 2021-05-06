@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 class AbonentRepositoryImpl(private val context: Context)
     : AbonentRepository {
 
-    var dao: AbonentDao
+    private var dao: AbonentDao
     var listener: BaseQueryResultListener? = null
 
     init {

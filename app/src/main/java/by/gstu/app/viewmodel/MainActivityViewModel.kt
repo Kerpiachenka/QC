@@ -19,6 +19,10 @@ class MainActivityViewModel : ViewModel() {
         mainActivityListener?.onOpenManageAbonentActivity()
     }
 
+    fun openManagePlatformActivity(view: View) {
+        mainActivityListener?.onOpenManagePlatformActivity()
+    }
+
     fun updateList() {
         abonentList = abonentRepository?.getAll()!!
     }
