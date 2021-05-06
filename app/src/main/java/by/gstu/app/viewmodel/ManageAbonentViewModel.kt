@@ -3,10 +3,11 @@ package by.gstu.app.viewmodel
 import android.view.View
 import androidx.lifecycle.ViewModel
 import by.gstu.app.bean.Abonent
+import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
 import by.gstu.app.repository.AbonentRepositoryImpl
 
-class ManageAbonentViewModel : ViewModel() {
+class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var repository: AbonentRepositoryImpl? = null
 
     var name: String? = null
@@ -24,8 +25,6 @@ class ManageAbonentViewModel : ViewModel() {
             null -> createNew()
             else -> updateExists()
         }
-
-        //manageAbonentListener?.onSuccess()
     }
 
     private fun updateExists() {
@@ -42,6 +41,13 @@ class ManageAbonentViewModel : ViewModel() {
             return
         }
         repository!!.delete(abonent!!)
-        //manageAbonentListener?.onSuccess()
+    }
+
+    override fun onSuccess() {
+        manageAbonentListener?.onSuccess()
+    }
+
+    override fun onFailure(message: String) {
+        manageAbonentListener?.onFailure(message)
     }
 }

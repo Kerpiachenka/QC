@@ -24,8 +24,6 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
         val viewModel: ManageAbonentViewModel = ViewModelProvider(this)
             .get(ManageAbonentViewModel::class.java)
 
-        val repository = AbonentRepositoryImpl(this.applicationContext)
-
         val entity = intent.getSerializableExtra(Abonent::class.java.simpleName)
         entity?.let {
             val abonent = it as Abonent
@@ -34,7 +32,8 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
             viewModel.age = abonent.age.toString()
         }
 
-        repository.manageAbonentListener = this
+        val repository = AbonentRepositoryImpl(this.applicationContext)
+        repository.listener = viewModel
 		viewModel.manageAbonentListener = this
         binding.viewmodel = viewModel
         viewModel.repository = repository

@@ -3,50 +3,48 @@ package by.gstu.app.repository
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import by.gstu.app.bean.Abonent
-import by.gstu.app.call.AbonentCallableAction
-import by.gstu.app.call.DeleteAbonentCallableAction
-import by.gstu.app.call.InsertAbonentCallableAction
-import by.gstu.app.call.UpdateAbonentCallableAction
-import by.gstu.app.dao.AbonentDao
+import by.gstu.app.bean.Platform
+import by.gstu.app.call.DeletePlatformCallableAction
+import by.gstu.app.call.InsertPlatformCallableAction
+import by.gstu.app.call.PlatformCallableAction
+import by.gstu.app.call.UpdatePlatformCallableAction
+import by.gstu.app.dao.PlatformDao
 import by.gstu.app.database.AppDatabase
 import by.gstu.app.listener.BaseQueryResultListener
-import by.gstu.app.listener.ManageAbonentListener
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class AbonentRepositoryImpl(private val context: Context)
-    : AbonentRepository {
+class PlatformRepositoryImpl(private val context: Context)
+    : PlatformRepository {
 
-    var dao: AbonentDao
+    var dao: PlatformDao
     var listener: BaseQueryResultListener? = null
 
     init {
         val db = Room.databaseBuilder(context,
                 AppDatabase::class.java, "database").build()
-        dao = db.abonentDao()
+        dao = db.platformDao()
     }
 
-
-    override fun getAll(): LiveData<List<Abonent>> {
+    override fun getAll(): LiveData<List<Platform>> {
         return dao.getAll()
     }
 
-    override fun insert(obj: Abonent) {
-        execute(InsertAbonentCallableAction(obj, dao, context))
+    override fun insert(obj: Platform) {
+        execute(InsertPlatformCallableAction(obj, dao, context))
     }
 
-    override fun update(obj: Abonent) {
-        execute(UpdateAbonentCallableAction(obj, dao, context))
+    override fun update(obj: Platform) {
+        execute(UpdatePlatformCallableAction(obj, dao, context))
     }
 
-    override fun delete(obj: Abonent) {
-        execute(DeleteAbonentCallableAction(obj, dao, context))
+    override fun delete(obj: Platform) {
+        execute(DeletePlatformCallableAction(obj, dao, context))
     }
 
-    private fun execute(abonentCallableAction: AbonentCallableAction) {
-        Observable.fromCallable(abonentCallableAction)
+    private fun execute(platformCallableAction: PlatformCallableAction) {
+        Observable.fromCallable(platformCallableAction)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { res ->
