@@ -25,7 +25,7 @@ class ManageAbonentViewModel : ViewModel() {
             else -> updateExists()
         }
 
-        manageAbonentListener?.onSuccess()
+        //manageAbonentListener?.onSuccess()
     }
 
     private fun updateExists() {
@@ -42,6 +42,6 @@ class ManageAbonentViewModel : ViewModel() {
             return
         }
         repository!!.delete(abonent!!)
-        manageAbonentListener?.onSuccess()
+        //manageAbonentListener?.onSuccess()
     }
 }

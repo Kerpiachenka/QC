@@ -35,8 +35,8 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
         }
 
         repository.manageAbonentListener = this
+		viewModel.manageAbonentListener = this
         binding.viewmodel = viewModel
-        viewModel.manageAbonentListener = this
         viewModel.repository = repository
     }
 

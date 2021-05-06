@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
 
         val binding : ActivityMainBinding = DataBindingUtil
                 .setContentView(this, R.layout.activity_main)
-        adapter = AbonentRecyclerViewAdapter(this)
+				
         // Bind RecyclerView
         val recyclerView: RecyclerView = binding.abonentList
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -42,9 +42,10 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
                 .get(MainActivityViewModel::class.java)
         viewModel.mainActivityListener = this
         viewModel.abonentRepository = AbonentRepositoryImpl(this.applicationContext)
+		binding.viewmodel = viewModel
 
         // Init adapter
-        binding.viewmodel = viewModel
+		adapter = AbonentRecyclerViewAdapter(this)
         binding.adapter = adapter
     }
 
