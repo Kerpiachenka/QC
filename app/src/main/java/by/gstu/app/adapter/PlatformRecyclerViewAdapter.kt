@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.R
 import by.gstu.app.bean.Abonent
 import by.gstu.app.bean.Platform
+import by.gstu.app.bean.PlatformStatus
 import by.gstu.app.databinding.ItemRowBinding
 import by.gstu.app.databinding.PlatformRowBinding
 import by.gstu.app.listener.CardClickListener
@@ -22,6 +23,10 @@ class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>)
         : RecyclerView.ViewHolder(binding.root) {
             fun bind(platform: Platform) {
                 binding.model = platform
+                binding.status = when(platform.isActive) {
+                    true -> PlatformStatus.ACTIVE
+                    else -> PlatformStatus.DISABLED
+                }
                 binding.itemClickListener = onCardClick
                 binding.executePendingBindings()
             }

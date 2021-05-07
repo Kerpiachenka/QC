@@ -2,6 +2,7 @@ package by.gstu.app.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import by.gstu.app.bean.Platform
 import by.gstu.app.call.DeletePlatformCallableAction
@@ -15,6 +16,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+
 class PlatformRepositoryImpl(private val context: Context)
     : PlatformRepository {
 
@@ -25,6 +27,10 @@ class PlatformRepositoryImpl(private val context: Context)
         val db = Room.databaseBuilder(context,
                 AppDatabase::class.java, "database").build()
         dao = db.platformDao()
+    }
+
+    override fun getCount(): LiveData<Int> {
+        return dao.getCount()
     }
 
     override fun getAll(): LiveData<List<Platform>> {

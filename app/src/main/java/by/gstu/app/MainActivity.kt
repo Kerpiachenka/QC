@@ -3,23 +3,17 @@ package by.gstu.app
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import by.gstu.app.adapter.AbonentRecyclerViewAdapter
 import by.gstu.app.bean.Abonent
-import by.gstu.app.database.AppDatabase
 import by.gstu.app.databinding.ActivityMainBinding
-import by.gstu.app.databinding.ActivityManageAbonentBinding
 import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
 import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.viewmodel.MainActivityViewModel
-import by.gstu.app.viewmodel.ManageAbonentViewModel
 
 class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListener<Abonent> {
 
@@ -63,7 +57,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
     }
 
     override fun onOpenManagePlatformActivity() {
-        val intent = Intent(this, ManagePlatformActivity::class.java)
+        val intent = Intent(this, ActiveGroupActivity::class.java)
         startActivity(intent)
     }
 

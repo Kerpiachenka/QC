@@ -6,25 +6,30 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.gstu.app.adapter.AbonentRecyclerViewAdapter
 import by.gstu.app.adapter.PlatformRecyclerViewAdapter
 import by.gstu.app.bean.Platform
-import by.gstu.app.databinding.ActivityMainBinding
-import by.gstu.app.databinding.ActivityManagePlatformBinding
+import by.gstu.app.databinding.ActivityActiveGroupBinding
 import by.gstu.app.listener.CardClickListener
 import by.gstu.app.repository.PlatformRepositoryImpl
-import by.gstu.app.viewmodel.MainActivityViewModel
-import by.gstu.app.viewmodel.ManagePlatformViewModel
+import by.gstu.app.viewmodel.ActiveGroupViewModel
 
-class ManagePlatformActivity : AppCompatActivity(), CardClickListener<Platform> {
-    lateinit var viewModel: ManagePlatformViewModel
+class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
+
+    companion object {
+        var STANDARD_DATA: List<Platform> = arrayListOf(
+                Platform(1, "Telegram", false,null),
+                Platform(2, "Twitter",false, null)
+        )
+    }
+
+    lateinit var viewModel: ActiveGroupViewModel
     private lateinit var adapter: PlatformRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding : ActivityManagePlatformBinding = DataBindingUtil
-                .setContentView(this, R.layout.activity_manage_platform)
+        val binding : ActivityActiveGroupBinding = DataBindingUtil
+                .setContentView(this, R.layout.activity_active_group)
 
         // Bind RecyclerView
         val recyclerView: RecyclerView = binding.platformList
@@ -32,12 +37,19 @@ class ManagePlatformActivity : AppCompatActivity(), CardClickListener<Platform> 
         recyclerView.setHasFixedSize(true)
 
         viewModel = ViewModelProvider(this)
-            .get(ManagePlatformViewModel::class.java)
+            .get(ActiveGroupViewModel::class.java)
         viewModel.platformRepository = PlatformRepositoryImpl(applicationContext)
         binding.viewmodel = viewModel
 
         adapter = PlatformRecyclerViewAdapter(this)
         binding.adapter = adapter
+
+        viewModel.updatePlatformsCount()
+        viewModel.getPlatformsCount().observe(this, {
+            if (it == 0) {
+                viewModel.initializePlatforms(STANDARD_DATA)
+            }
+        })
     }
 
     override fun onResume() {
