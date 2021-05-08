@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".ActiveGroupActivity"></activity>
+        <activity android:name=".ManagePlatformActivity"></activity>
+        <activity android:name=".ActiveGroupActivity" />
         <activity android:name=".ActiveGroupManagerActivity" />
         <activity android:name=".ManageAbonentActivity" />
         <activity android:name=".MainActivity">

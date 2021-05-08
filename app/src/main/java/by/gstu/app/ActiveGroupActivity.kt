@@ -1,5 +1,6 @@
 package by.gstu.app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.adapter.PlatformRecyclerViewAdapter
+import by.gstu.app.bean.Abonent
 import by.gstu.app.bean.Platform
 import by.gstu.app.databinding.ActivityActiveGroupBinding
 import by.gstu.app.listener.CardClickListener
@@ -17,8 +19,8 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
 
     companion object {
         var STANDARD_DATA: List<Platform> = arrayListOf(
-                Platform(1, "Telegram", false,null),
-                Platform(2, "Twitter",false, null)
+                Platform(1, "Telegram", false,null, "Add name and key."),
+                Platform(2, "Twitter",false, null, "Haven't yet.")
         )
     }
 
@@ -61,6 +63,8 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
     }
 
     override fun onCardClick(obj: Platform) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, ManagePlatformActivity::class.java)
+        intent.putExtra(Platform::class.java.simpleName, obj)
+        startActivity(intent)
     }
 }

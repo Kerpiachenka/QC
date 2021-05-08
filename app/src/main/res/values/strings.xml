@@ -15,4 +15,5 @@
     <string name="incorrect_contact_name_field_error">Name is too short</string>
     <string name="incorrect_age_field_error">Age is out of range</string>
     <string name="pattern_contact_name_error">Name isn\'t match pattern</string>
+    <string name="keyValueTemplate">key1=value1;key2=value2</string>
 </resources>

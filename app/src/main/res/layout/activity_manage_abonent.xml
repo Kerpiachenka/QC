@@ -47,27 +47,27 @@
 
         <Button
             android:id="@+id/save_changes_button"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
             android:onClick="@{viewmodel::saveChangesButtonClick}"
             app:backgroundTint="#4CAF50"
-            app:icon="@android:drawable/ic_menu_save"
+            app:icon="@drawable/ic_save_button"
             app:layout_constraintBottom_toTopOf="@+id/abonent_name"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/abonent_avatar"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <Button
-            android:id="@+id/delete_contact_button"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
+            android:id="@+id/delete_button"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="16dp"
             android:background="#FFFFFF"
-            android:onClick="@{viewmodel::deleteContactButtonClick}"
+            android:onClick="@{viewmodel::deleteButtonClick}"
             android:visibility="@{viewmodel.abonent != null ? View.VISIBLE : View.GONE}"
             app:backgroundTint="#F44336"
             app:icon="@drawable/ic_delete_friend_button"
@@ -79,7 +79,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/abonent_avatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -89,7 +89,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@android:mipmap/sym_def_app_icon"
             tools:srcCompat="@tools:sample/avatars" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,12 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ActivityManageAbonentBinding
+import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
 import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.ManageAbonentViewModel
 
-class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
+class ManageAbonentActivity : AppCompatActivity(), BaseQueryResultListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,7 +35,7 @@ class ManageAbonentActivity : AppCompatActivity(), ManageAbonentListener {
 
         val repository = AbonentRepositoryImpl(this.applicationContext)
         repository.listener = viewModel
-		viewModel.manageAbonentListener = this
+		viewModel.listener = this
         binding.viewmodel = viewModel
         viewModel.repository = repository
     }

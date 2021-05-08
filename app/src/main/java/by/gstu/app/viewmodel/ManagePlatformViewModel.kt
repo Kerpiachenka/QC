@@ -3,51 +3,60 @@ package by.gstu.app.viewmodel
 import android.view.View
 import androidx.lifecycle.ViewModel
 import by.gstu.app.bean.Abonent
+import by.gstu.app.bean.Platform
 import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
-import by.gstu.app.repository.AbonentRepositoryImpl
+import by.gstu.app.repository.PlatformRepository
 
-class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
-    var repository: AbonentRepositoryImpl? = null
+class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
+    var repository: PlatformRepository? = null
 
+    var data: String? = null
     var name: String? = null
-    var age: String? = null
-    var abonent: Abonent? = null
+    var instruction: String? = null
+    lateinit var platform: Platform
 
-    var manageAbonentListener: ManageAbonentListener? = null
+    var listener: BaseQueryResultListener? = null
 
     fun saveChangesButtonClick(view: View) {
-        if (name.isNullOrBlank() || age.isNullOrBlank()) {
-            manageAbonentListener?.onFailure("Incorrect name or age")
+        if (data.isNullOrBlank()) {
+            listener?.onFailure("Incorrect data. Please follow instructions bellow.")
             return
         }
-        when(abonent) {
-            null -> createNew()
-            else -> updateExists()
+        when(platform.isActive) {
+            true -> updateExists()
+            else -> addToActiveGroup()
         }
     }
 
     private fun updateExists() {
-        repository?.update(Abonent(abonent!!.id, name!!, age!!.toInt()))
+        execute(Platform(platform.id, platform.name,
+            true, data, platform.instruction))
     }
 
-    private fun createNew() {
-        repository?.insert(Abonent(0, name!!, age!!.toInt()))
+    private fun addToActiveGroup() {
+        execute(Platform(platform.id, platform.name,
+            true, data, platform.instruction))
     }
 
     fun deleteButtonClick(view: View) {
+        execute(Platform(platform.id, platform.name,
+            false, null, platform.instruction))
+    }
+
+    fun execute(platform: Platform) {
         if (repository == null) {
-            manageAbonentListener?.onFailure("Repository must be initialized.")
+            listener?.onFailure("Repository must be initialized.")
             return
         }
-        repository!!.delete(abonent!!)
+        repository!!.update(platform)
     }
 
     override fun onSuccess() {
-        manageAbonentListener?.onSuccess()
+        listener?.onSuccess()
     }
 
     override fun onFailure(message: String) {
-        manageAbonentListener?.onFailure(message)
+        listener?.onFailure(message)
     }
 }

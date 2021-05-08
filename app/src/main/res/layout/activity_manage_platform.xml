@@ -1,9 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ManagePlatformActivity">
+    >
+    <data>
+        <variable
+            name="viewmodel"
+            type="by.gstu.app.viewmodel.ManagePlatformViewModel" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ManagePlatformActivity">
+
+        <TextView
+            android:id="@+id/platform_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-smallcaps"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:padding="5dp"
+            android:text="@={viewmodel.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/platform_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.625" />
+
+        <ImageView
+            android:id="@+id/platform_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.144"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29"
+            app:srcCompat="@android:mipmap/sym_def_app_icon"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <Button
+            android:id="@+id/save_changes_button"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FFFFFF"
+            android:onClick="@{viewmodel::saveChangesButtonClick}"
+            app:backgroundTint="#4CAF50"
+            app:icon="@drawable/ic_save_button"
+            app:layout_constraintBottom_toTopOf="@+id/platform_data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/platform_logo" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FFFFFF"
+            android:onClick="@{viewmodel::deleteButtonClick}"
+            android:visibility="@{viewmodel.platform.isActive ? View.VISIBLE : View.GONE}"
+            app:backgroundTint="#F44336"
+            app:icon="@drawable/ic_delete_button"
+            app:layout_constraintBottom_toTopOf="@+id/platform_data"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.407"
+            app:layout_constraintStart_toEndOf="@+id/save_changes_button" />
+
+        <EditText
+            android:id="@+id/platform_data"
+            android:layout_width="328dp"
+            android:layout_height="41dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/keyValueTemplate"
+            android:inputType="textLongMessage"
+            android:text="@={viewmodel.data}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/platform_logo"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/platform_instruction"
+            android:layout_width="332dp"
+            android:layout_height="284dp"
+            android:text="@={viewmodel.instruction}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.531"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/platform_data"
+            app:layout_constraintVertical_bias="0.356" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

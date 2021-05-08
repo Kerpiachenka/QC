@@ -9,5 +9,6 @@ data class Platform(
         @PrimaryKey(autoGenerate = true) val id : Long,
         val name: String,
         val isActive: Boolean,
-        val data: String?
+        val data: String?,
+        val instruction: String?
 ) : Serializable
