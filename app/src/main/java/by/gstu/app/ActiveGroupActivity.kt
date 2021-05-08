@@ -46,19 +46,23 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
         adapter = PlatformRecyclerViewAdapter(this)
         binding.adapter = adapter
 
+        checkPlatforms()
+        updateData()
+    }
+
+    private fun updateData() {
+        viewModel.updateList()
+        viewModel.getAllPlatform().observe(this, {
+            adapter.setData(it)
+        })
+    }
+
+    private fun checkPlatforms() {
         viewModel.updatePlatformsCount()
         viewModel.getPlatformsCount().observe(this, {
             if (it == 0) {
                 viewModel.initializePlatforms(STANDARD_DATA)
             }
-        })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.updateList()
-        viewModel.getAllPlatform().observe(this, {
-            adapter.setData(it)
         })
     }
 

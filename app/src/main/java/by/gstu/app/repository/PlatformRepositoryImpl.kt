@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
+import by.gstu.app.bean.Abonent
 import by.gstu.app.bean.Platform
 import by.gstu.app.call.DeletePlatformCallableAction
 import by.gstu.app.call.InsertPlatformCallableAction
@@ -22,11 +23,13 @@ class PlatformRepositoryImpl(private val context: Context)
 
     private var dao: PlatformDao
     var listener: BaseQueryResultListener? = null
+    var data: LiveData<List<Platform>>
 
     init {
         val db = Room.databaseBuilder(context,
                 AppDatabase::class.java, "database").build()
         dao = db.platformDao()
+        data = dao.getAll()
     }
 
     override fun getCount(): LiveData<Int> {
@@ -34,7 +37,7 @@ class PlatformRepositoryImpl(private val context: Context)
     }
 
     override fun getAll(): LiveData<List<Platform>> {
-        return dao.getAll()
+        return data
     }
 
     override fun insert(obj: Platform) {

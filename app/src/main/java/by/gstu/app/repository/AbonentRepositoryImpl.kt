@@ -21,16 +21,18 @@ class AbonentRepositoryImpl(private val context: Context)
 
     private var dao: AbonentDao
     var listener: BaseQueryResultListener? = null
+    var data: LiveData<List<Abonent>>
 
     init {
         val db = Room.databaseBuilder(context,
                 AppDatabase::class.java, "database").build()
         dao = db.abonentDao()
+        data = dao.getAll()
     }
 
 
     override fun getAll(): LiveData<List<Abonent>> {
-        return dao.getAll()
+        return data
     }
 
     override fun insert(obj: Abonent) {

@@ -41,15 +41,17 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
         // Init adapter
 		adapter = AbonentRecyclerViewAdapter(this)
         binding.adapter = adapter
-    }
 
-    override fun onResume() {
-        super.onResume()
         viewModel.updateList()
         viewModel.getAllAbonent().observe(this, {
             adapter.setData(it)
         })
     }
+
+    /*override fun onResume() {
+        super.onResume()
+        viewModel.updateList()
+    }*/
 
     override fun onOpenManageAbonentActivity() {
         val intent = Intent(this, ManageAbonentActivity::class.java)
