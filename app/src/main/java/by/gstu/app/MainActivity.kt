@@ -9,13 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.adapter.AbonentRecyclerViewAdapter
 import by.gstu.app.bean.Abonent
+import by.gstu.app.bean.AbonentPlatformCrossRef
 import by.gstu.app.databinding.ActivityMainBinding
 import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
+import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepositoryImpl
+import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.MainActivityViewModel
 
-class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListener<Abonent> {
+class MainActivity : AppCompatActivity(),
+        MainActivityListener, CardClickListener<Abonent> {
 
     lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: AbonentRecyclerViewAdapter
@@ -46,12 +50,20 @@ class MainActivity : AppCompatActivity(), MainActivityListener, CardClickListene
         viewModel.getAllAbonent().observe(this, {
             adapter.setData(it)
         })
+
+        //testMethod()
     }
 
-    /*override fun onResume() {
-        super.onResume()
-        viewModel.updateList()
-    }*/
+    private fun testMethod() {
+        val repa = AbonentPlatformCrossRefRepositoryImpl(this.applicationContext)
+        repa.insert(AbonentPlatformCrossRef(1, 1, "+375447143867"))
+        repa.insert(AbonentPlatformCrossRef(2, 1, "+375296342868"))
+
+        repa.getAbonentsOfPlatform("mikola")
+                .observe(this, {
+            toast(it.toString())
+        })
+    }
 
     override fun onOpenManageAbonentActivity() {
         val intent = Intent(this, ManageAbonentActivity::class.java)
