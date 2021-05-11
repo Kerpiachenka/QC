@@ -10,7 +10,7 @@ interface AbonentDao {
     @Query("SELECT * FROM abonent")
     fun getAll(): LiveData<List<Abonent>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(abonent: Abonent) : Completable
 
     @Update
