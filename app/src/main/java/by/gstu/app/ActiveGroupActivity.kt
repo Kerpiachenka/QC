@@ -17,13 +17,6 @@ import by.gstu.app.viewmodel.ActiveGroupViewModel
 
 class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
 
-    companion object {
-        var STANDARD_DATA: List<Platform> = arrayListOf(
-                Platform("Telegram", false, null, "Add name and key."),
-                Platform("Twitter", false, null, "Haven't yet.")
-        )
-    }
-
     lateinit var viewModel: ActiveGroupViewModel
     private lateinit var adapter: PlatformRecyclerViewAdapter
 
@@ -46,7 +39,6 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
         adapter = PlatformRecyclerViewAdapter(this)
         binding.adapter = adapter
 
-        checkPlatforms()
         updateData()
     }
 
@@ -54,15 +46,6 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
         viewModel.updateList()
         viewModel.getAllPlatform().observe(this, {
             adapter.setData(it)
-        })
-    }
-
-    private fun checkPlatforms() {
-        viewModel.updatePlatformsCount()
-        viewModel.getPlatformsCount().observe(this, {
-            if (it == 0) {
-                viewModel.initializePlatforms(STANDARD_DATA)
-            }
         })
     }
 

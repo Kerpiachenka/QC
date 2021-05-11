@@ -17,11 +17,19 @@ import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
 import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepositoryImpl
+import by.gstu.app.repository.PlatformRepositoryImpl
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.MainActivityViewModel
 
 class MainActivity : AppCompatActivity(),
         MainActivityListener, CardClickListener<Abonent> {
+
+    companion object {
+        var STANDARD_DATA: List<Platform> = arrayListOf(
+                Platform("Telegram", false, null, "Add name and key."),
+                Platform("Twitter", false, null, "Haven't yet.")
+        )
+    }
 
     lateinit var viewModel: MainActivityViewModel
     private lateinit var adapter: AbonentRecyclerViewAdapter
@@ -50,6 +58,17 @@ class MainActivity : AppCompatActivity(),
         viewModel.updateList()
         viewModel.getAllAbonent().observe(this, {
             adapter.setData(it)
+        })
+        checkPlatforms() // TODO: make changes in record according changes in platform initialization
+    }
+
+    private fun checkPlatforms() {
+        viewModel.platformRepository = PlatformRepositoryImpl(applicationContext)
+        viewModel.updatePlatformsCount()
+        viewModel.getPlatformsCount().observe(this, {
+            if (it == 0) {
+                viewModel.initializePlatforms(STANDARD_DATA)
+            }
         })
     }
 
