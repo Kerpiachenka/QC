@@ -28,7 +28,7 @@ class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     }
 
     private fun updateExists() {
-        repository?.update(Abonent(abonent!!.id, name!!, age!!.toInt()))
+        repository?.update(Abonent(abonent!!.abonentId, name!!, age!!.toInt()))
     }
 
     private fun createNew() {

@@ -9,7 +9,7 @@ import io.reactivex.Completable
 
 @Dao
 interface AbonentPlatformCrossRefDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(crossRef: AbonentPlatformCrossRef) : Completable
 
     @Delete
@@ -18,11 +18,14 @@ interface AbonentPlatformCrossRefDao {
     @Update
     fun update(crossRef: AbonentPlatformCrossRef) : Completable
 
+    @Query("SELECT * FROM AbonentPlatformCrossRef")
+    fun getAll(): LiveData<List<AbonentPlatformCrossRef>>
+
     @Transaction
-    @Query("SELECT * FROM abonent WHERE id=:abonentId")
+    @Query("SELECT * FROM abonent WHERE abonentId=:abonentId")
     fun getPlatformsOfAbonent(abonentId: Long) : LiveData<AbonentWithPlatforms>
 
     @Transaction
-    @Query("SELECT * FROM platform WHERE name=:platformName")
+    @Query("SELECT * FROM platform WHERE platformName=:platformName")
     fun getAbonentsOfPlatform(platformName: String) : LiveData<PlatformWithAbonents>
 }

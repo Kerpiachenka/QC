@@ -29,7 +29,7 @@ class ManagePlatformActivity : AppCompatActivity(), BaseQueryResultListener {
         val platform = intent.getSerializableExtra(Platform::class.java.simpleName) as Platform
         viewModel.platform = platform
         viewModel.data = platform.data
-        viewModel.name = platform.name
+        viewModel.name = platform.platformName
         viewModel.instruction = platform.instruction
 
         val repository = PlatformRepositoryImpl(this.applicationContext)

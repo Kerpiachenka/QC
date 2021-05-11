@@ -30,21 +30,21 @@ class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
     }
 
     private fun updateExists() {
-        execute(Platform(platform.id, platform.name,
+        execute(Platform(platform.platformName,
             true, data, platform.instruction))
     }
 
     private fun addToActiveGroup() {
-        execute(Platform(platform.id, platform.name,
+        execute(Platform(platform.platformName,
             true, data, platform.instruction))
     }
 
     fun deleteButtonClick(view: View) {
-        execute(Platform(platform.id, platform.name,
+        execute(Platform(platform.platformName,
             false, null, platform.instruction))
     }
 
-    fun execute(platform: Platform) {
+    private fun execute(platform: Platform) {
         if (repository == null) {
             listener?.onFailure("Repository must be initialized.")
             return

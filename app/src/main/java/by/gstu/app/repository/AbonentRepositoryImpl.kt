@@ -24,9 +24,8 @@ class AbonentRepositoryImpl(private val context: Context)
     var data: LiveData<List<Abonent>>
 
     init {
-        val db = Room.databaseBuilder(context,
-                AppDatabase::class.java, "database").build()
-        dao = db.abonentDao()
+        val db = AppDatabase.getInstance(context)
+        dao = db.abonentDao
         data = dao.getAll()
     }
 

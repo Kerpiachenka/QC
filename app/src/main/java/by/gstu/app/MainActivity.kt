@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.adapter.AbonentRecyclerViewAdapter
 import by.gstu.app.bean.Abonent
 import by.gstu.app.bean.AbonentPlatformCrossRef
+import by.gstu.app.bean.Platform
+import by.gstu.app.database.AppDatabase
 import by.gstu.app.databinding.ActivityMainBinding
 import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
@@ -29,7 +31,6 @@ class MainActivity : AppCompatActivity(),
 
         val binding : ActivityMainBinding = DataBindingUtil
                 .setContentView(this, R.layout.activity_main)
-				
         // Bind RecyclerView
         val recyclerView: RecyclerView = binding.abonentList
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -49,19 +50,6 @@ class MainActivity : AppCompatActivity(),
         viewModel.updateList()
         viewModel.getAllAbonent().observe(this, {
             adapter.setData(it)
-        })
-
-        //testMethod()
-    }
-
-    private fun testMethod() {
-        val repa = AbonentPlatformCrossRefRepositoryImpl(this.applicationContext)
-        repa.insert(AbonentPlatformCrossRef(1, 1, "+375447143867"))
-        repa.insert(AbonentPlatformCrossRef(2, 1, "+375296342868"))
-
-        repa.getAbonentsOfPlatform("mikola")
-                .observe(this, {
-            toast(it.toString())
         })
     }
 

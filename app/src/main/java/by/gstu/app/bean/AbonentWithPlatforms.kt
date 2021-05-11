@@ -9,8 +9,7 @@ data class AbonentWithPlatforms(
 
         @Relation(
                 parentColumn = "abonentId",
-                entityColumn = "platformId",
+                entityColumn = "platformName",
                 associateBy = Junction(AbonentPlatformCrossRef::class)
-        )
-        var platforms: List<Platform>
+        ) val platforms: List<Platform>
 )

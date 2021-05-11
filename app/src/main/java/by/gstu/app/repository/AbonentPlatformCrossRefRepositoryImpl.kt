@@ -18,12 +18,13 @@ class AbonentPlatformCrossRefRepositoryImpl(private val context: Context)
 
     private var dao: AbonentPlatformCrossRefDao = AppDatabase.getInstance(context).abonentWithPlatformDao
     var listener: BaseQueryResultListener? = null
+
     override fun getPlatformsOfAbonent(abonentId: Long): LiveData<AbonentWithPlatforms> {
-        TODO("Not yet implemented")
+        return dao.getPlatformsOfAbonent(abonentId)
     }
 
     override fun getAbonentsOfPlatform(platformName: String): LiveData<PlatformWithAbonents> {
-        TODO("Not yet implemented")
+        return dao.getAbonentsOfPlatform(platformName)
     }
 
     override fun insert(crossRef: AbonentPlatformCrossRef) {

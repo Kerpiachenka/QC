@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/platform_name"
-                android:text="@{model.name}"
+                android:text="@{model.platformName}"
                 android:layout_width="170dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"

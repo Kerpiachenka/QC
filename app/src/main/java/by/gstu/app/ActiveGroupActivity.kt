@@ -19,8 +19,8 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
 
     companion object {
         var STANDARD_DATA: List<Platform> = arrayListOf(
-                Platform(1, "Telegram", false,null, "Add name and key."),
-                Platform(2, "Twitter",false, null, "Haven't yet.")
+                Platform("Telegram", false, null, "Add name and key."),
+                Platform("Twitter", false, null, "Haven't yet.")
         )
     }
 

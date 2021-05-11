@@ -10,8 +10,8 @@ interface PlatformDao {
     @Query("SELECT * FROM platform")
     fun getAll(): LiveData<List<Platform>>
 
-    @Query("SELECT * FROM platform WHERE id=:id")
-    fun getById(id: Int): LiveData<Platform>
+    @Query("SELECT * FROM platform WHERE platformName=:name")
+    fun getByName(name: String): LiveData<Platform>
 
     @Query("SELECT COUNT(*) FROM platform")
     fun getCount(): LiveData<Int>

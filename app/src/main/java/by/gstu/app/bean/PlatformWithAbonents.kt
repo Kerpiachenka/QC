@@ -8,9 +8,8 @@ data class PlatformWithAbonents(
         @Embedded val platform: Platform,
 
         @Relation(
-                parentColumn = "platformId",
+                parentColumn = "platformName",
                 entityColumn = "abonentId",
                 associateBy = Junction(AbonentPlatformCrossRef::class)
-        )
-        var abonents: List<Abonent>
+        ) val abonents: List<Abonent>
 )
