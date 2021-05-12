@@ -16,4 +16,5 @@
     <string name="incorrect_age_field_error">Нарушены границы возраста</string>
     <string name="pattern_contact_name_error">Имя не соответсвует шаблону</string>
     <string name="keyValueTemplate">ключ1=значение1;ключ2=значение2</string>
+    <string name="username_or_phone_number">имя пользователя или номер телефона…</string>
 </resources>

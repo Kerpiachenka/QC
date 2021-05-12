@@ -1,20 +1,23 @@
 package by.gstu.app.viewmodel
 
 import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import by.gstu.app.bean.Abonent
+import by.gstu.app.bean.AbonentWithPlatforms
+import by.gstu.app.bean.Platform
 import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
+import by.gstu.app.repository.AbonentPlatformCrossRefRepository
+import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepository
 
 class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var repository: AbonentRepository? = null
-
+    var listener: BaseQueryResultListener? = null
     var name: String? = null
     var age: String? = null
     var abonent: Abonent? = null
-
-    var listener: BaseQueryResultListener? = null
 
     fun saveChangesButtonClick(view: View) {
         if (name.isNullOrBlank() || age.isNullOrBlank()) {
@@ -25,6 +28,13 @@ class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
             null -> createNew()
             else -> updateExists()
         }
+    }
+
+    fun retrievePlatformsOfAbonent(
+            abonent: Abonent, repository:
+            AbonentPlatformCrossRefRepository
+    ): LiveData<AbonentWithPlatforms>{
+        return repository.getPlatformsOfAbonent(abonentId = abonent.abonentId)
     }
 
     private fun updateExists() {

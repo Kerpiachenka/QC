@@ -27,6 +27,14 @@ class AbonentPlatformCrossRefRepositoryImpl(private val context: Context)
         return dao.getAbonentsOfPlatform(platformName)
     }
 
+    override fun getCrossRefByAbonentId(abonentId: Long): LiveData<AbonentPlatformCrossRef> {
+        return dao.getCrossRefByAbonentId(abonentId)
+    }
+
+    override fun getCrossRefByPlatformName(platformName: String): LiveData<AbonentPlatformCrossRef> {
+        return dao.getCrossRefByPlatformName(platformName)
+    }
+
     override fun insert(crossRef: AbonentPlatformCrossRef) {
         execute(InsertAbonentPlatformCallableAction(crossRef, dao, context))
     }

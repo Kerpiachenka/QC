@@ -18,6 +18,12 @@ interface AbonentPlatformCrossRefDao {
     @Update
     fun update(crossRef: AbonentPlatformCrossRef) : Completable
 
+    @Query("SELECT * FROM AbonentPlatformCrossRef WHERE abonentId=:abonentId")
+    fun getCrossRefByAbonentId(abonentId: Long) : LiveData<AbonentPlatformCrossRef>
+
+    @Query("SELECT * FROM AbonentPlatformCrossRef WHERE platformName=:platformName")
+    fun getCrossRefByPlatformName(platformName: String) : LiveData<AbonentPlatformCrossRef>
+
     @Transaction
     @Query("SELECT * FROM abonent WHERE abonentId=:abonentId")
     fun getPlatformsOfAbonent(abonentId: Long) : LiveData<AbonentWithPlatforms>

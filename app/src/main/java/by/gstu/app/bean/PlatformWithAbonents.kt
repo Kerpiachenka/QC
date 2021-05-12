@@ -3,6 +3,7 @@ package by.gstu.app.bean
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
+import java.io.Serializable
 
 data class PlatformWithAbonents(
         @Embedded val platform: Platform,
@@ -12,4 +13,4 @@ data class PlatformWithAbonents(
                 entityColumn = "abonentId",
                 associateBy = Junction(AbonentPlatformCrossRef::class)
         ) val abonents: List<Abonent>
-)
+) : Serializable
