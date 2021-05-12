@@ -90,6 +90,7 @@ class ManageAbonentActivity
                 .inflate(R.layout.platform_alert_dialog, null)
         val editText = dialogLayout.findViewById<EditText>(R.id.user_identifier)
         lateinit var crossRef: AbonentPlatformCrossRef
+
         crossRefRepository.getCrossRefByPlatformName(obj.platformName)
                 .observe(this, {
                     editText.setText(it.userIdentifier)
