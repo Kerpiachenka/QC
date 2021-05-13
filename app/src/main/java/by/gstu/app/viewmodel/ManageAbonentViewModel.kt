@@ -4,6 +4,7 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import by.gstu.app.bean.Abonent
+import by.gstu.app.bean.AbonentPlatformCrossRef
 import by.gstu.app.bean.AbonentWithPlatforms
 import by.gstu.app.bean.Platform
 import by.gstu.app.listener.BaseQueryResultListener
@@ -11,6 +12,7 @@ import by.gstu.app.listener.ManageAbonentListener
 import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepository
+import by.gstu.app.repository.PlatformRepository
 
 class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var repository: AbonentRepository? = null
@@ -30,11 +32,18 @@ class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
         }
     }
 
-    fun retrievePlatformsOfAbonent(
-            abonent: Abonent, repository:
-            AbonentPlatformCrossRefRepository
-    ): LiveData<AbonentWithPlatforms>{
-        return repository.getPlatformsOfAbonent(abonentId = abonent.abonentId)
+    fun getCrossRef(id: Long, platformName: String,
+                    repository: AbonentPlatformCrossRefRepository
+    ): LiveData<AbonentPlatformCrossRef> {
+        return repository.getCrossRefByAbonentAndPlatform(id, platformName)
+    }
+
+    fun retrieveAllAvailablePlatforms(repository: PlatformRepository): LiveData<List<Platform>>{
+        return repository.getAll()
+    }
+
+    fun addCrossRef(crossRef: AbonentPlatformCrossRef, repository: AbonentPlatformCrossRefRepository) {
+        repository.insert(crossRef)
     }
 
     private fun updateExists() {

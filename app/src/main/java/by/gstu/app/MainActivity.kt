@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity(),
     companion object {
         var STANDARD_DATA: List<Platform> = arrayListOf(
                 Platform("Telegram", false, null, "Add name and key."),
-                Platform("Twitter", false, null, "Haven't yet.")
         )
     }
 
@@ -100,6 +99,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onButtonClick(obj: Abonent) {
         val builder = AlertDialog.Builder(this)
+        // TODO: call into VM
         repository.getPlatformsOfAbonent(obj.abonentId)
                 .observe(this, {
                     val data = arrayListOf<String>()

@@ -44,6 +44,16 @@ class DeleteAbonentPlatformCallableAction(data: AbonentPlatformCrossRef,
     }
 }
 
+class DeactivatePlatformPlatformCallableAction(data: AbonentPlatformCrossRef,
+                                          dao: AbonentPlatformCrossRefDao,
+                                          context: Context)
+    : AbonentPlatformConnectionCallableAction(data, dao, context) {
+    override fun call(): Boolean {
+        executeCompletable(dao.deactivatePlatform(data.platformName))
+        return true
+    }
+}
+
 class UpdateAbonentPlatformCallableAction(data: AbonentPlatformCrossRef,
                                           dao: AbonentPlatformCrossRefDao,
                                           context: Context)

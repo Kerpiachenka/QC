@@ -17,7 +17,7 @@ import by.gstu.app.listener.CardClickListener
 class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>)
     : RecyclerView.Adapter<PlatformRecyclerViewAdapter.PlatformViewHolder>(), Filterable {
 
-    private val data: MutableList<Platform> = arrayListOf()
+    val data: MutableList<Platform> = arrayListOf()
 
     inner class PlatformViewHolder(private val binding: PlatformRowBinding)
         : RecyclerView.ViewHolder(binding.root) {

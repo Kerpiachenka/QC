@@ -9,10 +9,10 @@ interface AbonentPlatformCrossRefRepository {
     fun getPlatformsOfAbonent(abonentId: Long) : LiveData<AbonentWithPlatforms>
     fun getAbonentsOfPlatform(platformName: String) : LiveData<PlatformWithAbonents>
 
-    fun getCrossRefByAbonentId(abonentId: Long) : LiveData<AbonentPlatformCrossRef>
-    fun getCrossRefByPlatformName(platformName: String) : LiveData<AbonentPlatformCrossRef>
+    fun getCrossRefByAbonentAndPlatform(abonentId: Long, platformName: String) : LiveData<AbonentPlatformCrossRef>
 
     fun insert(crossRef: AbonentPlatformCrossRef)
     fun delete(crossRef: AbonentPlatformCrossRef)
     fun update(crossRef: AbonentPlatformCrossRef)
+    fun deactivatePlatform(crossRef: AbonentPlatformCrossRef)
 }

@@ -18,11 +18,11 @@ interface AbonentPlatformCrossRefDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(crossRef: AbonentPlatformCrossRef) : Completable
 
-    @Query("SELECT * FROM AbonentPlatformCrossRef WHERE abonentId=:abonentId")
-    fun getCrossRefByAbonentId(abonentId: Long) : LiveData<AbonentPlatformCrossRef>
+    @Query("DELETE FROM AbonentPlatformCrossRef WHERE platformName=:platformName")
+    fun deactivatePlatform(platformName: String) : Completable
 
-    @Query("SELECT * FROM AbonentPlatformCrossRef WHERE platformName=:platformName")
-    fun getCrossRefByPlatformName(platformName: String) : LiveData<AbonentPlatformCrossRef>
+    @Query("SELECT * FROM AbonentPlatformCrossRef WHERE platformName=:platformName AND abonentId=:abonentId")
+    fun getCrossRefByAbonentAndPlatform(abonentId: Long, platformName: String) : LiveData<AbonentPlatformCrossRef>
 
     @Transaction
     @Query("SELECT * FROM abonent WHERE abonentId=:abonentId")

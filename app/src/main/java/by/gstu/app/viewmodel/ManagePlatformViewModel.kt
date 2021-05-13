@@ -3,13 +3,16 @@ package by.gstu.app.viewmodel
 import android.view.View
 import androidx.lifecycle.ViewModel
 import by.gstu.app.bean.Abonent
+import by.gstu.app.bean.AbonentPlatformCrossRef
 import by.gstu.app.bean.Platform
 import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
+import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.PlatformRepository
 
 class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
     var repository: PlatformRepository? = null
+    var crossRefRepository: AbonentPlatformCrossRefRepository? = null
 
     var data: String? = null
     var name: String? = null
@@ -42,6 +45,8 @@ class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
     fun deleteButtonClick(view: View) {
         execute(Platform(platform.platformName,
             false, null, platform.instruction))
+        crossRefRepository?.deactivatePlatform(
+                AbonentPlatformCrossRef(0, platform.platformName, ""))
     }
 
     private fun execute(platform: Platform) {

@@ -21,6 +21,7 @@ import by.gstu.app.listener.CardClickListener
 import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepositoryImpl
+import by.gstu.app.repository.PlatformRepositoryImpl
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.ManageAbonentViewModel
 
@@ -29,6 +30,7 @@ class ManageAbonentActivity
 
     private lateinit var manageAbonentViewModel: ManageAbonentViewModel
     lateinit var crossRefRepository: AbonentPlatformCrossRefRepository
+    lateinit var abonent: Abonent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +47,7 @@ class ManageAbonentActivity
         val adapter = PlatformRecyclerViewAdapter(this)
 
         entity?.let {
-            val abonent = it as Abonent
+            abonent = it as Abonent
             fillManageAbonentViewModel(abonent, manageAbonentViewModel, adapter)
         }
         crossRefRepository = AbonentPlatformCrossRefRepositoryImpl(applicationContext)
@@ -66,12 +68,9 @@ class ManageAbonentActivity
         viewModel.name = abonent.name
         viewModel.age = abonent.age.toString()
 
-        val retrievePlatformsOfAbonent = viewModel.retrievePlatformsOfAbonent(
-                abonent,
-                AbonentPlatformCrossRefRepositoryImpl(applicationContext))
-        retrievePlatformsOfAbonent
+        viewModel.retrieveAllAvailablePlatforms(PlatformRepositoryImpl(this))
                 .observe(this, {
-                    adapter.setData(it.platforms)
+                    adapter.setData(it.filter { platform -> platform.isActive })
                 })
     }
 
@@ -86,22 +85,27 @@ class ManageAbonentActivity
 
     override fun onCardClick(obj: Platform) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Input user identifier")
+        builder.setTitle("Input user identifier (chat id)")
         val input = EditText(this)
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
-        lateinit var crossRef: AbonentPlatformCrossRef
+        val crossRef = AbonentPlatformCrossRef(abonent.abonentId, obj.platformName, "")
 
-        crossRefRepository.getCrossRefByPlatformName(obj.platformName)
+        manageAbonentViewModel
+                .getCrossRef(abonent.abonentId, obj.platformName, crossRefRepository)
                 .observe(this, {
-                    input.setText(it.userIdentifier)
-                    crossRef = it
-                })
+            if (it != null) {
+                input.setText(it.userIdentifier)
+                crossRef.userIdentifier = it.userIdentifier
+            }
+        })
+
         builder.setPositiveButton("ok") { _, _ ->
-            crossRefRepository.update(AbonentPlatformCrossRef(
+            manageAbonentViewModel.addCrossRef(AbonentPlatformCrossRef(
                     crossRef.abonentId, crossRef.platformName, input.text.toString()
-            ))
+            ), crossRefRepository)
         }
+
         builder.setNegativeButton("cancel") { dialogInterface, _ -> dialogInterface.cancel() }
         builder.show()
 

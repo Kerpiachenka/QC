@@ -10,6 +10,7 @@ import by.gstu.app.bean.Platform
 import by.gstu.app.databinding.ActivityManageAbonentBinding
 import by.gstu.app.databinding.ActivityManagePlatformBinding
 import by.gstu.app.listener.BaseQueryResultListener
+import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.repository.PlatformRepositoryImpl
 import by.gstu.app.util.toast
@@ -32,11 +33,17 @@ class ManagePlatformActivity : AppCompatActivity(), BaseQueryResultListener {
         viewModel.name = platform.platformName
         viewModel.instruction = platform.instruction
 
-        val repository = PlatformRepositoryImpl(this.applicationContext)
+        val repository = PlatformRepositoryImpl(applicationContext)
+        val crossRefRepository = AbonentPlatformCrossRefRepositoryImpl(applicationContext)
+
         repository.listener = viewModel
+        crossRefRepository.listener = viewModel
         viewModel.listener = this
-        binding.viewmodel = viewModel
+
+
         viewModel.repository = repository
+        viewModel.crossRefRepository = crossRefRepository
+        binding.viewmodel = viewModel
     }
 
     override fun onSuccess() {
