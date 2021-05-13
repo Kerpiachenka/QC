@@ -40,7 +40,6 @@ class ManagePlatformActivity : AppCompatActivity(), BaseQueryResultListener {
         crossRefRepository.listener = viewModel
         viewModel.listener = this
 
-
         viewModel.repository = repository
         viewModel.crossRefRepository = crossRefRepository
         binding.viewmodel = viewModel
