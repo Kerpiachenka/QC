@@ -17,6 +17,7 @@ import by.gstu.app.bean.AbonentPlatformCrossRef
 import by.gstu.app.bean.Platform
 import by.gstu.app.database.AppDatabase
 import by.gstu.app.databinding.ActivityMainBinding
+import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ButtonClickListener
 import by.gstu.app.listener.CardClickListener
 import by.gstu.app.listener.MainActivityListener
@@ -24,13 +25,18 @@ import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.repository.PlatformRepositoryImpl
+import by.gstu.app.sender.PlatformKind
+import by.gstu.app.sender.PlatformSenderFactory
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.MainActivityViewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
-        MainActivityListener, CardClickListener<Abonent>, ButtonClickListener<Abonent> {
+        MainActivityListener,
+        CardClickListener<Abonent>,
+        ButtonClickListener<Abonent>,
+        BaseQueryResultListener {
 
     companion object {
         var STANDARD_DATA: List<Platform> = arrayListOf(
@@ -106,21 +112,23 @@ class MainActivity : AppCompatActivity(),
                     for (platform in it.platforms) {
                         data.add(platform.platformName)
                     }
-                    configureBuilder(builder, data.toTypedArray())
+                    configureBuilder(builder, data.toTypedArray(), obj, it.platforms)
                 })
     }
 
-    private fun configureBuilder(builder: AlertDialog.Builder, items: Array<String>) {
+    private fun configureBuilder(builder: AlertDialog.Builder,
+                                 items: Array<String>,
+                                 abonent: Abonent,
+                                 platforms: List<Platform>) {
         val selectedList = ArrayList<Int>()
-        builder.setTitle("This is list choice dialog box")
+        builder.setTitle("Input your message and choose any platforms")
         val messageInput = EditText(this)
         messageInput.inputType = InputType.TYPE_CLASS_TEXT
 
         builder.setMultiChoiceItems(items, null) { _, which, isChecked ->
-            if (isChecked) {
-                selectedList.add(which)
-            } else if (selectedList.contains(which)) {
-                selectedList.remove(Integer.valueOf(which))
+            when(isChecked) {
+                true -> selectedList.add(which)
+                else -> selectedList.remove(Integer.valueOf(which))
             }
         }
         builder.setView(messageInput)
@@ -128,11 +136,27 @@ class MainActivity : AppCompatActivity(),
         builder.setPositiveButton("send") { _, _ ->
             val message = messageInput.text.toString()
             for (j in selectedList.indices) {
-                toast(items[selectedList[j]])
+                val selectedPlatform = items[selectedList[j]]
+                val platformSender = PlatformSenderFactory.getPlatformSender(
+                        PlatformKind.valueOf(selectedPlatform.toUpperCase(Locale.ROOT))
+                )
+                repository.getCrossRefByAbonentAndPlatform(abonent.abonentId, selectedPlatform)
+                        .observe(this, {
+                            val identifier = it.userIdentifier
+                            platformSender.createSender()
+                                    .sendToPlatform(identifier, message, platforms[j], this)
+                        })
             }
         }
         builder.setNegativeButton("cancel") { dialogInterface, _ -> dialogInterface.cancel() }
-
         builder.show()
+    }
+
+    override fun onSuccess() {
+        toast("Successfully sent")
+    }
+
+    override fun onFailure(message: String) {
+        toast(message)
     }
 }

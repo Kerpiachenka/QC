@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="by.gstu.app">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,9 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
-        <activity android:name=".ManagePlatformActivity"></activity>
+        <activity android:name=".ManagePlatformActivity" />
         <activity android:name=".ActiveGroupActivity" />
-        <activity android:name=".ActiveGroupManagerActivity" />
         <activity android:name=".ManageAbonentActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
