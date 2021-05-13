@@ -102,7 +102,7 @@ class ManageAbonentActivity
                     crossRef.abonentId, crossRef.platformName, editText.text.toString()
             ))
         }
-        builder.setNegativeButton("cancel") { _, _ -> toast("Canceled") }
+        builder.setNegativeButton("cancel") { dialogInterface, _ -> dialogInterface.cancel() }
         builder.show()
 
     }

@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.R
 import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ItemRowBinding
+import by.gstu.app.listener.ButtonClickListener
 import by.gstu.app.listener.CardClickListener
 
-class AbonentRecyclerViewAdapter(val onCardClick: CardClickListener<Abonent>)
-    : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(), Filterable {
+class AbonentRecyclerViewAdapter(
+        val onCardClick: CardClickListener<Abonent>,
+        val onButtonClick: ButtonClickListener<Abonent>
+        ) : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(), Filterable {
 
     private val data: MutableList<Abonent> = arrayListOf()
 
@@ -21,6 +24,7 @@ class AbonentRecyclerViewAdapter(val onCardClick: CardClickListener<Abonent>)
             fun bind(abonent: Abonent) {
                 binding.model = abonent
                 binding.itemClickListener = onCardClick
+                binding.sendMessageClickListener = onButtonClick
                 binding.executePendingBindings()
             }
         }
