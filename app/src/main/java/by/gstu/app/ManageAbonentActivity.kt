@@ -2,6 +2,7 @@ package by.gstu.app
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
@@ -86,20 +87,19 @@ class ManageAbonentActivity
     override fun onCardClick(obj: Platform) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Input user identifier")
-        val dialogLayout = LayoutInflater.from(this)
-                .inflate(R.layout.platform_alert_dialog, null)
-        val editText = dialogLayout.findViewById<EditText>(R.id.user_identifier)
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT
+        builder.setView(input)
         lateinit var crossRef: AbonentPlatformCrossRef
 
         crossRefRepository.getCrossRefByPlatformName(obj.platformName)
                 .observe(this, {
-                    editText.setText(it.userIdentifier)
+                    input.setText(it.userIdentifier)
                     crossRef = it
                 })
-        builder.setView(dialogLayout)
         builder.setPositiveButton("ok") { _, _ ->
             crossRefRepository.update(AbonentPlatformCrossRef(
-                    crossRef.abonentId, crossRef.platformName, editText.text.toString()
+                    crossRef.abonentId, crossRef.platformName, input.text.toString()
             ))
         }
         builder.setNegativeButton("cancel") { dialogInterface, _ -> dialogInterface.cancel() }

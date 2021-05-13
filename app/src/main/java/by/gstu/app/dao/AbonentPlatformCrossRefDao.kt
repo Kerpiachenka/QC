@@ -15,7 +15,7 @@ interface AbonentPlatformCrossRefDao {
     @Delete
     fun delete(crossRef: AbonentPlatformCrossRef) : Completable
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(crossRef: AbonentPlatformCrossRef) : Completable
 
     @Query("SELECT * FROM AbonentPlatformCrossRef WHERE abonentId=:abonentId")
