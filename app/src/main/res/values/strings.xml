@@ -17,4 +17,7 @@
     <string name="pattern_contact_name_error">Name isn\'t match pattern</string>
     <string name="keyValueTemplate">key1=value1;key2=value2</string>
     <string name="username_or_phone_number">username or phone number…</string>
+    <string name="empty_data_field_error">field cannot be empty</string>
+    <string name="pattern_platform_data_error">field should contains key and value pair and separate ;</string>
+    <string name="incorrect_message_size_error">message size should be in range 5–50</string>
 </resources>

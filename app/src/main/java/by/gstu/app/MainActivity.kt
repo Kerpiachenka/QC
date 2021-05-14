@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onButtonClick(obj: Abonent) {
         val builder = AlertDialog.Builder(this)
-        // TODO: call into VM
+        // TODO: call via VM
         repository.getPlatformsOfAbonent(obj.abonentId)
                 .observe(this, {
                     val data = arrayListOf<String>()
@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(),
                 val platformSender = PlatformSenderFactory.getPlatformSender(
                         PlatformKind.valueOf(selectedPlatform.toUpperCase(Locale.ROOT))
                 )
+				// TODO: call via VM
                 repository.getCrossRefByAbonentAndPlatform(abonent.abonentId, selectedPlatform)
                         .observe(this, {
                             val identifier = it.userIdentifier
