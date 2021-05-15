@@ -27,6 +27,7 @@ import by.gstu.app.repository.AbonentRepositoryImpl
 import by.gstu.app.repository.PlatformRepositoryImpl
 import by.gstu.app.sender.PlatformKind
 import by.gstu.app.sender.PlatformSenderFactory
+import by.gstu.app.util.MessageValidator
 import by.gstu.app.util.toast
 import by.gstu.app.viewmodel.MainActivityViewModel
 import java.util.*
@@ -135,18 +136,23 @@ class MainActivity : AppCompatActivity(),
 
         builder.setPositiveButton("send") { _, _ ->
             val message = messageInput.text.toString()
-            for (j in selectedList.indices) {
-                val selectedPlatform = items[selectedList[j]]
-                val platformSender = PlatformSenderFactory.getPlatformSender(
-                        PlatformKind.valueOf(selectedPlatform.toUpperCase(Locale.ROOT))
-                )
-				// TODO: call via VM
-                repository.getCrossRefByAbonentAndPlatform(abonent.abonentId, selectedPlatform)
-                        .observe(this, {
-                            val identifier = it.userIdentifier
-                            platformSender.createSender()
-                                    .sendToPlatform(identifier, message, platforms[j], this)
-                        })
+            val messageValidator = MessageValidator()
+            if (messageValidator.isValid(message)) {
+                for (j in selectedList.indices) {
+                    val selectedPlatform = items[selectedList[j]]
+                    val platformSender = PlatformSenderFactory.getPlatformSender(
+                            PlatformKind.valueOf(selectedPlatform.toUpperCase(Locale.ROOT))
+                    )
+                    // TODO: call via VM
+                    repository.getCrossRefByAbonentAndPlatform(abonent.abonentId, selectedPlatform)
+                            .observe(this, {
+                                val identifier = it.userIdentifier
+                                platformSender.createSender()
+                                        .sendToPlatform(identifier, message, platforms[j], this)
+                            })
+                }
+            } else {
+                messageInput.error = resources.getString(messageValidator.resourceValueMessage)
             }
         }
         builder.setNegativeButton("cancel") { dialogInterface, _ -> dialogInterface.cancel() }

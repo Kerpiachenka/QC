@@ -13,6 +13,8 @@ import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.AbonentPlatformCrossRefRepositoryImpl
 import by.gstu.app.repository.AbonentRepository
 import by.gstu.app.repository.PlatformRepository
+import by.gstu.app.util.AbonentAgeValidator
+import by.gstu.app.util.AbonentNameValidator
 
 class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var repository: AbonentRepository? = null
@@ -20,9 +22,11 @@ class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var name: String? = null
     var age: String? = null
     var abonent: Abonent? = null
+    private val ageValidator = AbonentAgeValidator()
+    private val nameValidator = AbonentNameValidator()
 
     fun saveChangesButtonClick(view: View) {
-        if (name.isNullOrBlank() || age.isNullOrBlank()) {
+        if (!isAgeFieldValid() || !isNameFieldValid()) {
             listener?.onFailure("Incorrect name or age")
             return
         }
@@ -30,6 +34,17 @@ class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
             null -> createNew()
             else -> updateExists()
         }
+    }
+
+    private fun isAgeFieldValid(): Boolean {
+        if (age == null || age.toString().isEmpty()) {
+            return ageValidator.isValid(null)
+        }
+        return ageValidator.isValid(age.toString().toInt())
+    }
+
+    private fun isNameFieldValid(): Boolean {
+        return nameValidator.isValid(name.toString())
     }
 
     fun getCrossRef(id: Long, platformName: String,

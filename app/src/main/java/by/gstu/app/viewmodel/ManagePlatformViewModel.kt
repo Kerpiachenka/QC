@@ -9,10 +9,12 @@ import by.gstu.app.listener.BaseQueryResultListener
 import by.gstu.app.listener.ManageAbonentListener
 import by.gstu.app.repository.AbonentPlatformCrossRefRepository
 import by.gstu.app.repository.PlatformRepository
+import by.gstu.app.util.PlatformDataValidator
 
 class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
     var repository: PlatformRepository? = null
     var crossRefRepository: AbonentPlatformCrossRefRepository? = null
+    var dataValidator = PlatformDataValidator()
 
     var data: String? = null
     var name: String? = null
@@ -22,8 +24,8 @@ class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
     var listener: BaseQueryResultListener? = null
 
     fun saveChangesButtonClick(view: View) {
-        if (data.isNullOrBlank()) {
-            listener?.onFailure("Incorrect data. Please follow instructions bellow.")
+        if (!dataValidator.isValid(data)) {
+            onFailure("Incorrect data. Please follow instructions bellow.")
             return
         }
         when(platform.isActive) {
@@ -51,7 +53,7 @@ class ManagePlatformViewModel() : ViewModel(), BaseQueryResultListener {
 
     private fun execute(platform: Platform) {
         if (repository == null) {
-            listener?.onFailure("Repository must be initialized.")
+            onFailure("Repository must be initialized.")
             return
         }
         repository!!.update(platform)

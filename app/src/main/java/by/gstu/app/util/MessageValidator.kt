@@ -26,7 +26,7 @@ class MessageValidator : FieldValidator<String?>() {
     private inner class MessageValidators {
 
         fun isFieldNullOrEmpty(field: String?): Boolean {
-            return field == null || field.isEmpty()
+            return field.isNullOrBlank()
         }
 
         fun isFieldTooShort(field: String): Boolean {
