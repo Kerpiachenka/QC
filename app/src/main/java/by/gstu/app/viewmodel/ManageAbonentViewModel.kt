@@ -19,15 +19,17 @@ import by.gstu.app.util.AbonentNameValidator
 class ManageAbonentViewModel : ViewModel(), BaseQueryResultListener {
     var repository: AbonentRepository? = null
     var listener: BaseQueryResultListener? = null
+
     var name: String? = null
     var age: String? = null
+
     var abonent: Abonent? = null
     private val ageValidator = AbonentAgeValidator()
     private val nameValidator = AbonentNameValidator()
 
     fun saveChangesButtonClick(view: View) {
         if (!isAgeFieldValid() || !isNameFieldValid()) {
-            listener?.onFailure("Incorrect name or age")
+            onFailure("Invalid name or age")
             return
         }
         when(abonent) {
