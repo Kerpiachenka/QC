@@ -28,7 +28,7 @@ import java.util.regex.Matcher
 class ManageAbonentActivityIT {
 
     @get:Rule
-    val managePlatformActivity = ActivityTestRule(ManageAbonentActivity::class.java)
+    val manageAbonentActivityRule = ActivityTestRule(ManageAbonentActivity::class.java)
 
     @Test
     fun testDeleteButtonIsNotDisplayed() {
@@ -49,7 +49,7 @@ class ManageAbonentActivityIT {
     }
 
     @Test
-    fun testDeleteButtonIsNotClickable() {
+    fun testDeleteButtonIsClickable() {
         onView(withId(R.id.delete_button)).check(matches(isClickable()))
     }
 

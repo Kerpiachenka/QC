@@ -9,7 +9,7 @@ class PlatformDataValidator : FieldValidator<String?>() {
         private const val MIN_RANGE = 3
         private const val MAX_RANGE = 18
         val PATTERN: Pattern = Pattern.compile(
-                String.format("([A-Za-z0-9]+=[A-Za-z0-9]+;)+",
+                String.format("([A-Za-z0-9]+=[A-Za-z0-9:;*_,.]+;)+",
                         MIN_RANGE, MAX_RANGE))
     }
 

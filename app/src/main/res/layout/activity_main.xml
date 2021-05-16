@@ -20,7 +20,7 @@
         tools:context=".MainActivity">
 
         <Button
-            android:id="@+id/create_contact_page_button"
+            android:id="@+id/create_abonent_page_button"
             android:layout_width="62dp"
             android:layout_height="48dp"
             android:layout_marginBottom="16dp"
