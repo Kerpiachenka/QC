@@ -52,10 +52,14 @@ class TelegramMessageSender : Sender {
 
     private fun getToken(data: String?): String {
         data?.let {
-            val keys = it.split("=")
-            if (keys.contains("token")) {
-                return keys[keys.indexOf("token") + 1]
+            val keys = it.split(";")
+            for (key in keys) {
+                val pair = key.split("=")
+                if (pair.contains("token")) {
+                    return pair[1]
+                }
             }
+
         }
         return ""
     }
