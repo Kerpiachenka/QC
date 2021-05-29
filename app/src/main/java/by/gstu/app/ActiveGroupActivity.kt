@@ -36,7 +36,7 @@ class ActiveGroupActivity : AppCompatActivity(), CardClickListener<Platform> {
         viewModel.platformRepository = PlatformRepositoryImpl(applicationContext)
         binding.viewmodel = viewModel
 
-        adapter = PlatformRecyclerViewAdapter(this)
+        adapter = PlatformRecyclerViewAdapter(this, applicationContext)
         binding.adapter = adapter
 
         updateData()

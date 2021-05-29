@@ -1,6 +1,7 @@
 package by.gstu.app
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -41,7 +42,10 @@ class MainActivity : AppCompatActivity(),
 
     companion object {
         var STANDARD_DATA: List<Platform> = arrayListOf(
-                Platform("Telegram", false, null, "Add name and key."),
+                Platform("Telegram",
+                        false,
+                        null,
+                        "Add name and key."),
         )
     }
 

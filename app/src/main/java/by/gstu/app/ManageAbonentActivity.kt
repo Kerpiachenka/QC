@@ -44,7 +44,7 @@ class ManageAbonentActivity
         val repository = AbonentRepositoryImpl(this.applicationContext)
         val recyclerView: RecyclerView = binding.platformList
         val entity = intent.getSerializableExtra(Abonent::class.java.simpleName)
-        val adapter = PlatformRecyclerViewAdapter(this)
+        val adapter = PlatformRecyclerViewAdapter(this, applicationContext)
 
         entity?.let {
             abonent = it as Abonent

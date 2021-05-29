@@ -13,8 +13,10 @@ import by.gstu.app.bean.PlatformStatus
 import by.gstu.app.databinding.ItemRowBinding
 import by.gstu.app.databinding.PlatformRowBinding
 import by.gstu.app.listener.CardClickListener
+import android.content.Context
+import android.graphics.BitmapFactory
 
-class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>)
+class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>, val context: Context)
     : RecyclerView.Adapter<PlatformRecyclerViewAdapter.PlatformViewHolder>(), Filterable {
 
     val data: MutableList<Platform> = arrayListOf()
@@ -27,6 +29,12 @@ class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>)
                     true -> PlatformStatus.ACTIVE
                     else -> PlatformStatus.DISABLED
                 }
+                binding.platformLogo.setImageBitmap(
+                        BitmapFactory.decodeResource(
+                                context.resources,
+                                PlatformLogo.valueOf(platform.platformName.toUpperCase()).getLogo()
+                        )
+                )
                 binding.itemClickListener = onCardClick
                 binding.executePendingBindings()
             }
@@ -57,5 +65,15 @@ class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>)
 
     override fun getFilter(): Filter {
         TODO("Not yet implemented")
+    }
+
+    private enum class PlatformLogo {
+        TELEGRAM {
+            override fun getLogo(): Int {
+                return R.drawable.telegram
+            }
+        };
+
+        abstract fun getLogo(): Int
     }
 }
