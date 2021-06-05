@@ -45,7 +45,11 @@ class MainActivity : AppCompatActivity(),
                 Platform("Telegram",
                         false,
                         null,
-                        "Add name and key."),
+                        "Add token for your telegram bot like this: token=1l2s9gjd332zzq;"),
+                Platform("Viber",
+                        false,
+                        null,
+                        "Add your viber bot token like this: token=1l2s9gjd332zzq;" )
         )
     }
 
@@ -86,7 +90,7 @@ class MainActivity : AppCompatActivity(),
         viewModel.platformRepository = PlatformRepositoryImpl(applicationContext)
         viewModel.updatePlatformsCount()
         viewModel.getPlatformsCount().observe(this, {
-            if (it == 0) {
+            if (it < STANDARD_DATA.size) {
                 viewModel.initializePlatforms(STANDARD_DATA)
             }
         })

@@ -15,6 +15,7 @@ import by.gstu.app.databinding.PlatformRowBinding
 import by.gstu.app.listener.CardClickListener
 import android.content.Context
 import android.graphics.BitmapFactory
+import java.util.*
 
 class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>, val context: Context)
     : RecyclerView.Adapter<PlatformRecyclerViewAdapter.PlatformViewHolder>(), Filterable {
@@ -32,7 +33,8 @@ class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>, 
                 binding.platformLogo.setImageBitmap(
                         BitmapFactory.decodeResource(
                                 context.resources,
-                                PlatformLogo.valueOf(platform.platformName.toUpperCase()).getLogo()
+                                PlatformLogo.valueOf(
+                                        platform.platformName.toUpperCase(Locale.ROOT)).getLogo()
                         )
                 )
                 binding.itemClickListener = onCardClick
@@ -71,6 +73,11 @@ class PlatformRecyclerViewAdapter(val onCardClick: CardClickListener<Platform>, 
         TELEGRAM {
             override fun getLogo(): Int {
                 return R.drawable.telegram
+            }
+        },
+        VIBER {
+            override fun getLogo(): Int {
+                return R.drawable.viber
             }
         };
 

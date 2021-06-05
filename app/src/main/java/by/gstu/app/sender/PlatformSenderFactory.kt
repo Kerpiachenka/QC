@@ -1,6 +1,7 @@
 package by.gstu.app.sender
 
 import by.gstu.app.sender.telegram.TelegramMessageSender
+import by.gstu.app.sender.viber.ViberMessageSender
 
 abstract class PlatformSenderFactory {
     abstract fun createSender(): Sender
@@ -9,6 +10,7 @@ abstract class PlatformSenderFactory {
         fun getPlatformSender(kind: PlatformKind): PlatformSenderFactory {
             return when(kind) {
                 PlatformKind.TELEGRAM -> TelegramSenderFactory()
+                PlatformKind.VIBER -> ViberSenderFactory()
             }
         }
     }
@@ -16,4 +18,8 @@ abstract class PlatformSenderFactory {
 
 class TelegramSenderFactory : PlatformSenderFactory() {
     override fun createSender() = TelegramMessageSender()
+}
+
+class ViberSenderFactory : PlatformSenderFactory() {
+    override fun createSender() = ViberMessageSender()
 }

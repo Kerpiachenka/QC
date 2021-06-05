@@ -16,7 +16,7 @@ interface PlatformDao {
     @Query("SELECT COUNT(*) FROM platform")
     fun getCount(): LiveData<Int>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(platform: Platform) : Completable
 
     @Update

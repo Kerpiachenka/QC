@@ -47,7 +47,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.1'
     def jupyter_version = "5.7.0"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$jupyter_version"
     testImplementation "org.junit.jupiter:junit-jupiter-engine:$jupyter_version"
