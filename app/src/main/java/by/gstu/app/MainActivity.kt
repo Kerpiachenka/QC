@@ -106,6 +106,10 @@ class MainActivity : AppCompatActivity(),
         startActivity(intent)
     }
 
+    override fun onOpenSettingsActivity() {
+
+    }
+
     override fun onCardClick(obj: Abonent) {
         val intent = Intent(this, ManageAbonentActivity::class.java)
         intent.putExtra(Abonent::class.java.simpleName, obj)

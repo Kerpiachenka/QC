@@ -20,6 +20,19 @@
         tools:context=".MainActivity">
 
         <Button
+            android:id="@+id/settings_page_button"
+            android:layout_width="62dp"
+            android:layout_height="48dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{viewmodel::openSettingsActivity}"
+            app:backgroundTint="#4CAF50"
+            app:icon="@drawable/ic_settings_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.088"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
             android:id="@+id/create_abonent_page_button"
             android:layout_width="62dp"
             android:layout_height="48dp"
@@ -38,10 +51,10 @@
             android:layout_marginBottom="16dp"
             android:onClick="@{viewmodel::openManagePlatformActivity}"
             app:backgroundTint="#4CAF50"
-            app:icon="@drawable/ic_add_button"
+            app:icon="@android:drawable/ic_menu_manage"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.765"
+            app:layout_constraintHorizontal_bias="0.911"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView

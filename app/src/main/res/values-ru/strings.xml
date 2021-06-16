@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Quick-Contact</string>
-    <string name="contactNameHintPlaintText">погремуха</string>
-    <string name="ageHintTextNumber">лвл</string>
-    <string name="sexSwitchTextOff">Самка</string>
-    <string name="sexSwitchTextOn">Самец</string>
+    <string name="contactNameHintPlaintText">имя</string>
+    <string name="ageHintTextNumber">возраст</string>
+    <string name="sexSwitchTextOff">Жен</string>
+    <string name="sexSwitchTextOn">Муж</string>
     <string name="search_hint">Инкогнито…</string>
     <string name="search_title">Поиск контакта</string>
     <string name="theme">Тема</string>

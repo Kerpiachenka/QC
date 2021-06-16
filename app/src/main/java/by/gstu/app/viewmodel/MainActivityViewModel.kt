@@ -40,6 +40,10 @@ class MainActivityViewModel : ViewModel() {
         mainActivityListener?.onOpenManagePlatformActivity()
     }
 
+    fun openSettingsActivity(view: View) {
+        mainActivityListener?.onOpenSettingsActivity()
+    }
+
     fun updateList() {
         abonentList = abonentRepository?.getAll()!!
     }
