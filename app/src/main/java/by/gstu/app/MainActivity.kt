@@ -5,7 +5,11 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.EditText
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
@@ -84,6 +88,25 @@ class MainActivity : AppCompatActivity(),
         })
         repository = AbonentPlatformCrossRefRepositoryImpl(applicationContext)
         checkPlatforms() // TODO: make changes in record according changes in platform initialization
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.base_menu, menu)
+        menu?.let {
+            val searchItem: MenuItem = it.findItem(R.id.action_search)
+            val searchView: SearchView = searchItem.actionView as SearchView
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    adapter.filter.filter(newText)
+                    return false
+                }
+            })
+        }
+        return true
     }
 
     private fun checkPlatforms() {

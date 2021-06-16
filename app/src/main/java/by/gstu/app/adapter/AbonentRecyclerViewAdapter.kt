@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import by.gstu.app.R
 import by.gstu.app.bean.Abonent
 import by.gstu.app.databinding.ItemRowBinding
+import by.gstu.app.filter.AbonentFilter
+import by.gstu.app.filter.AbonentFilterImpl
 import by.gstu.app.listener.ButtonClickListener
 import by.gstu.app.listener.CardClickListener
 
@@ -18,6 +20,7 @@ class AbonentRecyclerViewAdapter(
         ) : RecyclerView.Adapter<AbonentRecyclerViewAdapter.AbonentViewHolder>(), Filterable {
 
     private val data: MutableList<Abonent> = arrayListOf()
+    private var abonentFilter: AbonentFilter = AbonentFilterImpl(arrayListOf())
 
     inner class AbonentViewHolder(private val binding: ItemRowBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -43,7 +46,22 @@ class AbonentRecyclerViewAdapter(
     fun setData(abonentList: List<Abonent>) {
         data.clear()
         data.addAll(abonentList)
+        abonentFilter = AbonentFilterImpl(abonentList.toMutableList())
         notifyDataSetChanged()
+    }
+
+    private val filter: Filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            val filterResults = FilterResults()
+            filterResults.values = abonentFilter.applyFilter(constraint.toString())
+            return filterResults
+        }
+
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            data.clear()
+            data.addAll(results.values as MutableList<Abonent>)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemCount() : Int {
@@ -51,6 +69,6 @@ class AbonentRecyclerViewAdapter(
     }
 
     override fun getFilter(): Filter {
-        TODO("Not yet implemented")
+        return filter
     }
 }
